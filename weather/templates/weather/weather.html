@@ -24,6 +24,7 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-offset-4 is-4">
+
                     <form method="POST">
                         {% csrf_token %}
                         <div class="field has-addons">
@@ -36,7 +37,11 @@
                                 </button>
                             </div>
                         </div>
+                        {% if message %}
+                            <div class="notification {{ message_class }}">{{ message }}</div>
+                        {% endif %}
                     </form>
+
                 </div>
             </div>
         </div>
@@ -45,6 +50,7 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-offset-4 is-4">
+
                     {% for city_weather in weather_data %}
                     <div class="box">
                         <article class="media">
@@ -65,9 +71,15 @@
                                     </p>
                                 </div>
                             </div>
+                            <div class="media-right">
+                                <a href="{% url 'delete_city' city_weather.city %}">
+                                    <button class="delete"></button>
+                                </a>
+                            </div>
                         </article>
                     </div>
                     {% endfor %}
+
                 </div>
             </div>
         </div>
